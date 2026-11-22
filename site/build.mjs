@@ -12,6 +12,19 @@ const escape = (value) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;')
 const org = { '@type': 'Organization', '@id': origin + '/#organizacao', name: 'DropFlow', url: origin };
 const cityLink = (city) => '<a href="' + cityPath(city) + '">' + city.name + '</a>';
 const list = (items) => '<ul class="points">' + items.map((item) => '<li>' + item + '</li>').join('') + '</ul>';
+const featuredSolutions = [
+  ['automacao-de-processos', 'operacao.webp'],
+  ['integracao-de-sistemas', 'sistemas.webp'],
+  ['agentes-de-ia', 'atendimento.webp']
+];
+
+const featuredCards = '<div class="featured-grid">' + featuredSolutions.map(([slug, photo]) => {
+  const service = services.find((item) => item.slug === slug);
+  return `<a class="featured-card" href="${servicePath(service)}">
+    <img src="/images/${photo}" width="850" height="500" alt="" loading="lazy">
+    <div><h3>${service.name}</h3><p>${service.description}</p></div>
+  </a>`;
+}).join('') + '</div>';
 
 const serviceCards = (items) => '<div class="cards">' + items.map((item) => `
   <article class="card"><span class="icon" aria-hidden="true">${item.icon}</span>
@@ -55,14 +68,14 @@ function addPage(path, title, description, body, parents = [], schema = []) {
   <link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css">
   <script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replaceAll('<', '\\u003c')}</script>
 </head>
-<body>
+<body${path === '/' ? ' class="home"' : ''}>
   <a class="skip" href="#conteudo">Pular para o conteúdo</a>
   <header class="header"><div class="wrap nav">
     <a class="brand" href="/"><span class="mark" aria-hidden="true">↗</span>Drop<span>Flow</span></a>
     <nav aria-label="Navegação principal"><a href="/servicos/">Serviços</a><a href="/cidades/">Cidades</a><a href="/#metodo">Como trabalhamos</a></nav>
     <a class="button button-small" href="/contato/">Fale com a equipe</a>
   </div></header>
-  <main id="conteudo" class="wrap">${breadcrumbs}${body}</main>
+  <main id="conteudo"${path === '/' ? '' : ' class="wrap"'}>${breadcrumbs}${body}</main>
   <footer class="footer"><div class="wrap footer-row"><a class="brand" href="/"><span class="mark" aria-hidden="true">↗</span>Drop<span>Flow</span></a>
     <nav aria-label="Links do rodapé"><a href="/servicos/">Serviços</a><a href="/cidades/">Áreas atendidas</a><a href="/contato/">Contato</a><a href="https://dropflow.com.br/">DropFlow institucional</a></nav></div></footer>
 </body></html>`);
@@ -73,23 +86,25 @@ const intro = (title, description) => `<section class="intro"><h1>${title}</h1><
 addPage('/', 'Automação, integração de sistemas e IA para empresas',
   'A DropFlow conecta sistemas, automatiza processos e implanta agentes de IA para empresas. Conheça os serviços e solicite um diagnóstico.',
   `<section class="hero">
-    <div><p class="eyebrow"><span></span> Tecnologia para empresas</p>
-    <h1>Uma operação<br>mais <em>conectada.</em></h1>
-    <p class="lead">Automatize processos, integre seus sistemas e implante IA onde ela ajuda sua equipe a trabalhar melhor.</p>
-    <div class="actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a class="button secondary" href="/servicos/">Explorar serviços</a></div></div>
-    <figure class="workflow"><figcaption><span aria-hidden="true">●</span> Exemplo de fluxo comercial</figcaption>
-      <ol><li><span class="step-icon" aria-hidden="true">◎</span><div><strong>Novo contato</strong><small>Formulário ou WhatsApp</small></div></li>
-      <li><span class="step-icon" aria-hidden="true">↻</span><div><strong>Triagem e encaminhamento</strong><small>Regras de atendimento ou agente de IA</small></div></li>
-      <li><span class="step-icon" aria-hidden="true">▥</span><div><strong>Oportunidade registrada</strong><small>CRM, responsável e acompanhamento</small></div></li></ol>
-    </figure>
+    <img class="hero-photo" src="/images/infraestrutura.webp" width="1600" alt="" fetchpriority="high">
+    <div class="wrap hero-content">
+      <h1>Automação e integração<br> <em>para empresas.</em></h1>
+      <p class="lead">Conectamos ERP, CRM e WhatsApp, automatizamos rotinas e implantamos agentes de IA para atendimento e vendas.</p>
+      <div class="actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a class="button secondary" href="/servicos/">Explorar serviços</a></div>
+    </div>
   </section>
-  <section class="section"><div class="section-head"><h2>O que podemos implantar</h2><p>Comece pelo processo que mais toma tempo ou dificulta acompanhar os resultados.</p></div>${serviceCards(services)}</section>
+  <div class="wrap">
+  <section class="section home-solutions"><div class="section-head"><h2>Soluções para sua operação</h2><a href="/servicos/">Ver todos os serviços</a></div>
+    ${featuredCards}
+    <ul class="service-list">${services.filter((service) => !featuredSolutions.some(([slug]) => slug === service.slug)).map((service) =>
+      `<li><a href="${servicePath(service)}">${service.name}</a></li>`).join('')}</ul>
+  </section>
   <section class="section method" id="metodo"><div class="section-head"><h2>Do diagnóstico à operação</h2></div>
     <ol class="method-list"><li><h3>Entender o fluxo</h3><p>Mapear pessoas, ferramentas e pontos de retrabalho.</p></li>
     <li><h3>Implantar por etapas</h3><p>Começar pelo fluxo prioritário, testar exceções e validar a entrega com a equipe.</p></li>
     <li><h3>Acompanhar o uso</h3><p>Observar os resultados da primeira versão e avaliar as próximas melhorias.</p></li></ol></section>
   <section class="section"><div class="section-head"><h2>Atendimento no Vale do Itajaí</h2><a href="/cidades/">Explorar áreas atendidas</a></div>${cityCards(cities)}</section>
-  ${closing}`);
+  ${closing}</div>`);
 
 addPage('/servicos/', 'Serviços de tecnologia para empresas',
   'Veja o escopo dos serviços da DropFlow em automação, integrações, inteligência artificial, software, dados e operação comercial.',
