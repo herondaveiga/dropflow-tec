@@ -90,29 +90,46 @@ addPage('/', 'Automação, integração de sistemas e IA para empresas',
     <div class="wrap hero-content">
       <div>
         <h1>Automação e integração <em>para empresas.</em></h1>
-        <p class="lead">Conectamos ERP, CRM e WhatsApp, automatizamos rotinas e implantamos agentes de IA para atendimento e vendas.</p>
-        <div class="actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a class="button secondary" href="/servicos/">Explorar serviços</a></div>
+        <p class="lead">Pare de redigitar dados, procurar conversas e cobrar o próximo passo. Conectamos ERP, CRM e WhatsApp para sua equipe acompanhar o trabalho do primeiro contato à entrega.</p>
+        <div class="actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a class="button secondary" href="#solucoes">Ver o que podemos resolver</a></div>
+        <p class="contact-note">A primeira conversa serve para entender seu processo e identificar por onde começar.</p>
       </div>
       <div class="hero-media"><img class="hero-photo" src="/images/infraestrutura.webp" width="1600" alt="" fetchpriority="high"></div>
     </div>
   </section>
   <div class="wrap">
-  <section class="section home-solutions"><div class="section-head"><h2>Soluções para sua operação</h2><a href="/servicos/">Ver todos os serviços</a></div>
+  <section class="section" aria-labelledby="gargalos">
+    <div class="section-head"><h2 id="gargalos">Onde sua equipe perde tempo hoje?</h2></div>
+    <div class="cards problem-cards">
+      <article class="card"><h3>O lead chega e fica sem retorno</h3><p>Organize quem assume cada conversa, onde ela fica registrada e quando cobrar o próximo passo.</p><a href="/servicos/whatsapp-e-crm/">Organizar atendimento e vendas</a></article>
+      <article class="card"><h3>O mesmo dado é digitado duas vezes</h3><p>Defina qual sistema é a fonte da informação e sincronize os dados que outras equipes precisam usar.</p><a href="/servicos/integracao-de-sistemas/">Conectar sistemas</a></article>
+      <article class="card"><h3>Toda semana alguém monta o mesmo relatório</h3><p>Reúna as fontes e acompanhe indicadores sem depender de uma nova exportação a cada reunião.</p><a href="/servicos/dados-e-dashboards/">Organizar dados e indicadores</a></article>
+    </div>
+  </section>
+  <section class="section home-solutions" id="solucoes"><div class="section-head"><h2>Soluções para sua operação</h2><a href="/servicos/">Ver todos os serviços</a></div>
     ${featuredCards}
     <ul class="service-list">${services.filter((service) => !featuredSolutions.some(([slug]) => slug === service.slug)).map((service) =>
       `<li><a href="${servicePath(service)}">${service.name}</a></li>`).join('')}</ul>
   </section>
+  <section class="section split" aria-labelledby="exemplo">
+    <div><h2 id="exemplo">Do WhatsApp à próxima ação no CRM</h2><p>Imagine um orçamento que chega pelo WhatsApp, é repassado por mensagem e acaba numa planilha. Quem recebeu sabe do pedido, mas o restante da equipe pode perder o prazo sem perceber.</p><p>Este exemplo mostra como a DropFlow pode estruturar esse fluxo. A implantação depende do volume, das regras e das ferramentas do seu time.</p><a href="/servicos/whatsapp-e-crm/">Conhecer a solução de WhatsApp e CRM</a></div>
+    <div class="panel"><h3>Como o fluxo pode funcionar</h3><ol class="points"><li>O contato é identificado e a oportunidade é registrada no CRM.</li><li>A solicitação é encaminhada com histórico e responsável.</li><li>Se o prazo passar, a equipe recebe um aviso para retomar o atendimento.</li></ol></div>
+  </section>
   <section class="section method" id="metodo"><div class="section-head"><h2>Do diagnóstico à operação</h2></div>
-    <ol class="method-list"><li><h3>Entender o fluxo</h3><p>Mapear pessoas, ferramentas e pontos de retrabalho.</p></li>
-    <li><h3>Implantar por etapas</h3><p>Começar pelo fluxo prioritário, testar exceções e validar a entrega com a equipe.</p></li>
-    <li><h3>Acompanhar o uso</h3><p>Observar os resultados da primeira versão e avaliar as próximas melhorias.</p></li></ol></section>
+    <ol class="method-list"><li><h3>Escolher o gargalo</h3><p>Mapeamos como o trabalho acontece hoje e definimos uma primeira entrega com sua equipe.</p></li>
+    <li><h3>Testar antes de ampliar</h3><p>Validamos o fluxo com cenários reais, incluindo o que fazer quando uma integração falha ou o atendimento exige alguém da equipe.</p></li>
+    <li><h3>Acompanhar o uso</h3><p>Combinamos o que observar depois da implantação, como tempo de resposta, retrabalho ou solicitações fora do prazo.</p></li></ol></section>
+  <section class="section split" aria-labelledby="tecnologia"><div><h2 id="tecnologia">Tecnologia que se encaixa no seu fluxo</h2><p>O diagnóstico identifica quais conexões são viáveis e o que precisa de desenvolvimento sob medida.</p></div>
+    <div class="panel"><ul class="points"><li><strong>APIs e webhooks</strong> para trocar dados entre ERP, CRM e outras ferramentas.</li><li><strong>n8n</strong> para automatizar rotinas e encaminhar exceções.</li><li><strong>Agentes de IA</strong> para triagem e atendimento com passagem para uma pessoa.</li></ul></div></section>
   <section class="section"><div class="section-head"><h2>Atendimento no Vale do Itajaí</h2><a href="/cidades/">Explorar áreas atendidas</a></div>${cityCards(cities)}</section>
   <section class="section faq" aria-labelledby="duvidas"><h2 id="duvidas">Perguntas frequentes</h2>
     <div><details><summary>Preciso trocar os sistemas que já uso?</summary><p>O diagnóstico começa pelas ferramentas atuais. Se elas disponibilizarem APIs ou outra forma segura de integração, podemos conectá-las ao fluxo.</p></details>
     <details><summary>Posso começar automatizando um único processo?</summary><p>Sim. Podemos começar por uma rotina prioritária, testar exceções com a equipe e usar o resultado para planejar as próximas etapas.</p></details>
+    <details><summary>Quanto custa e quanto tempo leva?</summary><p>O escopo depende dos sistemas envolvidos, do volume e das regras do processo. No diagnóstico, levantamos esses pontos para estimar a primeira etapa e o que ela inclui.</p></details>
+    <details><summary>E se o agente de IA não souber responder?</summary><p>O projeto define quais fontes o agente pode consultar e em que situações ele deve encaminhar a conversa para a equipe.</p></details>
     <details><summary>O que devo levar para o diagnóstico?</summary><p>Descreva o processo, quem participa dele e quais sistemas são usados. Exemplos de atrasos ou retrabalho ajudam a definir o primeiro passo.</p></details></div>
   </section>
-  ${closing}</div>`);
+  <section class="closing"><div><h2>Qual processo você quer resolver primeiro?</h2><p>Conte onde a rotina trava e quais sistemas sua equipe usa. Esse é o ponto de partida para o diagnóstico.</p></div><a class="button" href="/contato/">Conversar com a DropFlow</a></section></div>`);
 
 addPage('/servicos/', 'Serviços de tecnologia para empresas',
   'Veja o escopo dos serviços da DropFlow em automação, integrações, inteligência artificial, software, dados e operação comercial.',

@@ -2,6 +2,10 @@
 
 ## Não versionado — 2026-11-21
 
+- Reorganizada a home em torno dos gargalos do cliente, com exemplo de implantação, explicação das tecnologias, respostas a objeções e chamadas para diagnóstico.
+
+## Não versionado — 2026-11-21
+
 - Reorganizada a home como página de vendas, com paleta grafite e amarelo, serviços em destaque e perguntas frequentes.
 
 ## Não versionado — 2026-11-21
