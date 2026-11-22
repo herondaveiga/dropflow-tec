@@ -18,7 +18,12 @@
     <nav aria-label="Navegação principal"><a href="/servicos/">Serviços</a><a href="/cidades/">Cidades</a><a href="/#metodo">Como trabalhamos</a></nav>
     <a class="button button-small" href="/contato/">Fale com a equipe</a>
   </div></header>
-  <main id="conteudo"><section class="hero">
+  <main id="conteudo"><script type="module" src="/motion.js"></script>
+  <section class="hero">
+    <div class="hero-media" aria-hidden="true">
+      <img class="hero-photo" src="/images/infraestrutura.webp" width="1600" alt="" fetchpriority="high">
+      <video class="hero-video" data-src="/images/abertura.mp4" muted loop playsinline preload="none"></video>
+    </div>
     <div class="wrap hero-content">
       <div>
         <h1>Automação e integração <em>para empresas.</em></h1>
@@ -26,8 +31,8 @@
         <div class="actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a class="button secondary" href="#solucoes">Ver o que podemos resolver</a></div>
         <p class="contact-note">A primeira conversa serve para entender seu processo e identificar por onde começar.</p>
       </div>
-      <div class="hero-media"><img class="hero-photo" src="/images/infraestrutura.webp" width="1600" alt="" fetchpriority="high"></div>
     </div>
+    <button class="video-control" type="button" hidden>Pausar vídeo</button>
   </section>
   <div class="wrap">
   <section class="section" aria-labelledby="gargalos">
@@ -53,10 +58,15 @@
   </a></div>
     <ul class="service-list"><li><a href="/servicos/dados-e-dashboards/">Dados e dashboards</a></li><li><a href="/servicos/whatsapp-e-crm/">WhatsApp, CRM e funis</a></li><li><a href="/servicos/sites-e-portais/">Sites e portais digitais</a></li><li><a href="/servicos/modernizacao-e-sustentacao/">Modernização e sustentação</a></li></ul>
   </section>
-  <section class="section split" aria-labelledby="exemplo">
+  </div>
+  <section class="story-band" aria-labelledby="exemplo">
+    <img src="/images/operacao.webp" width="850" alt="" loading="lazy">
+    <div class="wrap split">
     <div><h2 id="exemplo">Do WhatsApp à próxima ação no CRM</h2><p>Imagine um orçamento que chega pelo WhatsApp, é repassado por mensagem e acaba numa planilha. Quem recebeu sabe do pedido, mas o restante da equipe pode perder o prazo sem perceber.</p><p>Este exemplo mostra como a DropFlow pode estruturar esse fluxo. A implantação depende do volume, das regras e das ferramentas do seu time.</p><a href="/servicos/whatsapp-e-crm/">Conhecer a solução de WhatsApp e CRM</a></div>
     <div class="panel"><h3>Como o fluxo pode funcionar</h3><ol class="points"><li>O contato é identificado e a oportunidade é registrada no CRM.</li><li>A solicitação é encaminhada com histórico e responsável.</li><li>Se o prazo passar, a equipe recebe um aviso para retomar o atendimento.</li></ol></div>
+    </div>
   </section>
+  <div class="wrap">
   <section class="section method" id="metodo"><div class="section-head"><h2>Do diagnóstico à operação</h2></div>
     <ol class="method-list"><li><h3>Escolher o gargalo</h3><p>Mapeamos como o trabalho acontece hoje e definimos uma primeira entrega com sua equipe.</p></li>
     <li><h3>Testar antes de ampliar</h3><p>Validamos o fluxo com cenários reais, incluindo o que fazer quando uma integração falha ou o atendimento exige alguém da equipe.</p></li>

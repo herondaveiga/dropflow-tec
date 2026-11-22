@@ -1,5 +1,9 @@
 # Changelog
 
+## Não versionado — 2026-11-22
+
+- Adicionados vídeo de abertura, faixa fotográfica de ponta a ponta e animações discretas na home, com controles e suporte à preferência por movimento reduzido.
+
 ## Não versionado — 2026-11-21
 
 - Reorganizada a home em torno dos gargalos do cliente, com exemplo de implantação, explicação das tecnologias, respostas a objeções e chamadas para diagnóstico.
