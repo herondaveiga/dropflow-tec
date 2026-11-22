@@ -2,6 +2,10 @@
 
 ## Não versionado — 2026-11-22
 
+- Aplicada a nova estrutura da home, com navegação móvel, faixa de diagnóstico, comparação por gargalo e catálogo por objetivo. Adicionados atalhos de contato à abertura das páginas municipais.
+
+## Não versionado — 2026-11-22
+
 - Adicionados vídeo de abertura, faixa fotográfica de ponta a ponta e animações discretas na home, com controles e suporte à preferência por movimento reduzido.
 
 ## Não versionado — 2026-11-21

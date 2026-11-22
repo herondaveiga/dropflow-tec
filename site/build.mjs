@@ -12,20 +12,29 @@ const escape = (value) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;')
 const org = { '@type': 'Organization', '@id': origin + '/#organizacao', name: 'DropFlow', url: origin };
 const cityLink = (city) => '<a href="' + cityPath(city) + '">' + city.name + '</a>';
 const list = (items) => '<ul class="points">' + items.map((item) => '<li>' + item + '</li>').join('') + '</ul>';
-const featuredSolutions = [
-  ['automacao-de-processos', 'operacao.webp'],
-  ['integracao-de-sistemas', 'sistemas.webp'],
-  ['agentes-de-ia', 'atendimento.webp'],
-  ['sistemas-sob-medida', null]
+const solutionGroups = [
+  ['Automatizar a operação', 'operacao.webp', ['automacao-de-processos', 'agentes-de-ia', 'whatsapp-e-crm']],
+  ['Conectar ferramentas e dados', 'sistemas.webp', ['integracao-de-sistemas', 'dados-e-dashboards']],
+  ['Construir ou evoluir sistemas', 'atendimento.webp', ['sistemas-sob-medida', 'sites-e-portais', 'modernizacao-e-sustentacao']]
 ];
 
-const featuredCards = '<div class="featured-grid">' + featuredSolutions.map(([slug, photo]) => {
-  const service = services.find((item) => item.slug === slug);
-  return `<a class="featured-card" href="${servicePath(service)}">
-    <div><span class="icon" aria-hidden="true">${service.icon}</span><h3>${service.name}</h3><p>${service.description}</p><span class="detail">Ver serviço</span></div>${photo ? `
-    <img src="/images/${photo}" width="850" height="500" alt="" loading="lazy">` : ''}
-  </a>`;
+const featuredCards = '<div class="featured-grid">' + solutionGroups.map(([title, photo, slugs]) => {
+  const links = slugs.map((slug) => {
+    const service = services.find((item) => item.slug === slug);
+    return `<a href="${servicePath(service)}">${service.name}</a>`;
+  });
+  return `<article class="featured-card"><div><h3>${title}</h3>${list(links)}</div>
+    <img src="/images/${photo}" width="850" height="500" alt="" loading="lazy">
+  </article>`;
 }).join('') + '</div>';
+
+const scenarios = [
+  ['Leads sem retorno', 'A conversa fica no WhatsApp e o retorno depende de alguém lembrar.', 'A oportunidade entra no CRM com responsável e prazo. Se ficar parada, a equipe recebe um aviso.', '/servicos/whatsapp-e-crm/', 'Organizar atendimento e vendas'],
+  ['Dados digitados duas vezes', 'A equipe copia cadastros e pedidos entre sistemas e precisa conferir qual versão está certa.', 'O sistema de referência alimenta as demais ferramentas. Divergências são encaminhadas para revisão.', '/servicos/integracao-de-sistemas/', 'Conectar sistemas'],
+  ['Relatórios refeitos toda semana', 'Alguém exporta arquivos e repete os mesmos ajustes antes de cada reunião.', 'Um painel reúne os dados e informa quando foram atualizados, com indicadores definidos pela equipe.', '/servicos/dados-e-dashboards/', 'Organizar dados e indicadores']
+];
+
+const navigation = '<a href="/#solucoes">Soluções</a><a href="/#metodo">Como funciona</a><a href="/cidades/">Áreas atendidas</a>';
 
 const serviceCards = (items) => '<div class="cards">' + items.map((item) => `
   <article class="card"><span class="icon" aria-hidden="true">${item.icon}</span>
@@ -73,8 +82,11 @@ function addPage(path, title, description, body, parents = [], schema = []) {
   <a class="skip" href="#conteudo">Pular para o conteúdo</a>
   <header class="header"><div class="wrap nav">
     <a class="brand" href="/"><span class="mark" aria-hidden="true">↗</span>Drop<span>Flow</span></a>
-    <nav aria-label="Navegação principal"><a href="/servicos/">Serviços</a><a href="/cidades/">Cidades</a><a href="/#metodo">Como trabalhamos</a></nav>
-    <a class="button button-small" href="/contato/">Fale com a equipe</a>
+    <nav class="desktop-menu" aria-label="Navegação principal">${navigation}</nav>
+    <div class="header-actions">
+      <a class="button button-small" href="/contato/">Pedir diagnóstico</a>
+      <details class="mobile-menu"><summary>Menu</summary><nav aria-label="Navegação móvel">${navigation}</nav></details>
+    </div>
   </div></header>
   <main id="conteudo"${path === '/' ? '' : ' class="wrap"'}>${breadcrumbs}${body}</main>
   <footer class="footer"><div class="wrap footer-row"><a class="brand" href="/"><span class="mark" aria-hidden="true">↗</span>Drop<span>Flow</span></a>
@@ -82,7 +94,7 @@ function addPage(path, title, description, body, parents = [], schema = []) {
 </body></html>`);
 }
 
-const intro = (title, description) => `<section class="intro"><h1>${title}</h1><p class="lead">${description}</p></section>`;
+const intro = (title, description, actions = '') => `<section class="intro"><h1>${title}</h1><p class="lead">${description}</p>${actions}</section>`;
 
 addPage('/', 'Automação, integração de sistemas e IA para empresas',
   'A DropFlow conecta sistemas, automatiza processos e implanta agentes de IA para empresas. Conheça os serviços e solicite um diagnóstico.',
@@ -95,26 +107,32 @@ addPage('/', 'Automação, integração de sistemas e IA para empresas',
     <div class="wrap hero-content">
       <div>
         <h1>Automação e integração <em>para empresas.</em></h1>
-        <p class="lead">Pare de redigitar dados, procurar conversas e cobrar o próximo passo. Conectamos ERP, CRM e WhatsApp para sua equipe acompanhar o trabalho do primeiro contato à entrega.</p>
-        <div class="actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a class="button secondary" href="#solucoes">Ver o que podemos resolver</a></div>
-        <p class="contact-note">A primeira conversa serve para entender seu processo e identificar por onde começar.</p>
+        <p class="lead">Conectamos ERP, CRM e WhatsApp para reduzir retrabalho e dar à sua equipe visibilidade do primeiro contato à entrega.</p>
+        <div class="actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a class="button secondary" href="#solucoes">Explorar soluções</a></div>
       </div>
     </div>
     <button class="video-control" type="button" hidden>Pausar vídeo</button>
   </section>
   <div class="wrap">
+  <section class="diagnostic-strip" aria-labelledby="diagnostico">
+    <h2 id="diagnostico">O que avaliamos no diagnóstico</h2>
+    <ul><li><strong>Processo atual</strong><span>Onde o trabalho para ou precisa ser refeito.</span></li>
+    <li><strong>Integrações possíveis</strong><span>Quais sistemas podem trocar informações.</span></li>
+    <li><strong>Primeira entrega</strong><span>Qual etapa vale testar antes de ampliar.</span></li></ul>
+  </section>
   <section class="section" aria-labelledby="gargalos">
     <div class="section-head"><h2 id="gargalos">Onde sua equipe perde tempo hoje?</h2></div>
-    <div class="cards problem-cards">
-      <article class="card"><h3>O lead chega e fica sem retorno</h3><p>Organize quem assume cada conversa, onde ela fica registrada e quando cobrar o próximo passo.</p><a href="/servicos/whatsapp-e-crm/">Organizar atendimento e vendas</a></article>
-      <article class="card"><h3>O mesmo dado é digitado duas vezes</h3><p>Defina qual sistema é a fonte da informação e sincronize os dados que outras equipes precisam usar.</p><a href="/servicos/integracao-de-sistemas/">Conectar sistemas</a></article>
-      <article class="card"><h3>Toda semana alguém monta o mesmo relatório</h3><p>Reúna as fontes e acompanhe indicadores sem depender de uma nova exportação a cada reunião.</p><a href="/servicos/dados-e-dashboards/">Organizar dados e indicadores</a></article>
+    <div class="problem-cards">${scenarios.map(([title, before, after, url, label], index) => `
+      <details class="scenario" name="gargalos"${index === 0 ? ' open' : ''}>
+        <summary>${title}</summary>
+        <dl class="comparison"><div><dt>Como costuma ser</dt><dd>${before}</dd></div>
+        <div><dt>Como pode ficar</dt><dd>${after}</dd></div></dl>
+        <a href="${url}">${label}</a>
+      </details>`).join('')}
     </div>
   </section>
   <section class="section home-solutions" id="solucoes"><div class="section-head"><h2>Soluções para sua operação</h2><a href="/servicos/">Ver todos os serviços</a></div>
     ${featuredCards}
-    <ul class="service-list">${services.filter((service) => !featuredSolutions.some(([slug]) => slug === service.slug)).map((service) =>
-      `<li><a href="${servicePath(service)}">${service.name}</a></li>`).join('')}</ul>
   </section>
   </div>
   <section class="story-band" aria-labelledby="exemplo">
@@ -131,7 +149,7 @@ addPage('/', 'Automação, integração de sistemas e IA para empresas',
     <li><h3>Acompanhar o uso</h3><p>Combinamos o que observar depois da implantação, como tempo de resposta, retrabalho ou solicitações fora do prazo.</p></li></ol></section>
   <section class="section split" aria-labelledby="tecnologia"><div><h2 id="tecnologia">Tecnologia que se encaixa no seu fluxo</h2><p>O diagnóstico identifica quais conexões são viáveis e o que precisa de desenvolvimento sob medida.</p></div>
     <div class="panel"><ul class="points"><li><strong>APIs e webhooks</strong> para trocar dados entre ERP, CRM e outras ferramentas.</li><li><strong>n8n</strong> para automatizar rotinas e encaminhar exceções.</li><li><strong>Agentes de IA</strong> para triagem e atendimento com passagem para uma pessoa.</li></ul></div></section>
-  <section class="section"><div class="section-head"><h2>Atendimento no Vale do Itajaí</h2><a href="/cidades/">Explorar áreas atendidas</a></div>${cityCards(cities)}</section>
+  <section class="section"><div class="section-head"><div><h2>DropFlow no Vale do Itajaí</h2><p>Projetamos automações, integrações e sistemas em torno do trabalho que sua equipe já faz. Conheça as soluções por cidade ou saiba mais sobre a <a href="https://dropflow.com.br/">DropFlow</a>.</p></div><a href="/cidades/">Explorar áreas atendidas</a></div>${cityCards(cities)}</section>
   <section class="section faq" aria-labelledby="duvidas"><h2 id="duvidas">Perguntas frequentes</h2>
     <div><details><summary>Preciso trocar os sistemas que já uso?</summary><p>O diagnóstico começa pelas ferramentas atuais. Se elas disponibilizarem APIs ou outra forma segura de integração, podemos conectá-las ao fluxo.</p></details>
     <details><summary>Posso começar automatizando um único processo?</summary><p>Sim. Podemos começar por uma rotina prioritária, testar exceções com a equipe e usar o resultado para planejar as próximas etapas.</p></details>
@@ -139,7 +157,7 @@ addPage('/', 'Automação, integração de sistemas e IA para empresas',
     <details><summary>E se o agente de IA não souber responder?</summary><p>O projeto define quais fontes o agente pode consultar e em que situações ele deve encaminhar a conversa para a equipe.</p></details>
     <details><summary>O que devo levar para o diagnóstico?</summary><p>Descreva o processo, quem participa dele e quais sistemas são usados. Exemplos de atrasos ou retrabalho ajudam a definir o primeiro passo.</p></details></div>
   </section>
-  <section class="closing"><div><h2>Qual processo você quer resolver primeiro?</h2><p>Conte onde a rotina trava e quais sistemas sua equipe usa. Esse é o ponto de partida para o diagnóstico.</p></div><a class="button" href="/contato/">Conversar com a DropFlow</a></section></div>`);
+  <section class="closing"><div><h2>Qual processo você quer resolver primeiro?</h2><p>Conte onde a rotina trava e quais sistemas sua equipe usa.</p></div><div class="closing-actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a href="${contact}">Conversar no WhatsApp</a></div></section></div>`);
 
 addPage('/servicos/', 'Serviços de tecnologia para empresas',
   'Veja o escopo dos serviços da DropFlow em automação, integrações, inteligência artificial, software, dados e operação comercial.',
@@ -172,7 +190,8 @@ for (const [path, title, description, parents] of [
 for (const city of cities) {
   const title = city.focus + ' em ' + city.name;
   const localServices = city.services.map((slug) => services.find((service) => service.slug === slug));
-  addPage(cityPath(city), title, city.description, intro(title, city.description) +
+  addPage(cityPath(city), title, city.description, intro(title, city.description,
+    '<div class="actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a class="button secondary" href="' + contact + '">Conversar no WhatsApp</a></div>') +
     `<section class="section split"><div><h2>Por onde começar em ${city.name}</h2><p>${city.context}</p></div>
     <div class="panel"><h2>Exemplos de aplicação</h2>${list(city.scenarios)}</div></section>
     <section class="section"><h2>Soluções para empresas em ${city.name}</h2>${serviceCards(localServices)}</section>

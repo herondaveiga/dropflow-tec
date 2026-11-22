@@ -1,8 +1,13 @@
 const video = document.querySelector('.hero-video');
 const control = document.querySelector('.video-control');
+const mobileMenu = document.querySelector('.mobile-menu');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 let onScreen = false;
 let pausedByVisitor = false;
+
+mobileMenu.querySelector('nav').addEventListener('click', (event) => {
+  if (event.target.closest('a')) mobileMenu.open = false;
+});
 
 function syncVideo() {
   if (reducedMotion.matches || pausedByVisitor || !onScreen || document.hidden) {
