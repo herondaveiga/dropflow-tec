@@ -2,6 +2,10 @@
 
 ## Não versionado — 2026-11-22
 
+- Substituída a mídia da home por ilustrações de agentes de IA, automação, integração de dados e software, incluindo o vídeo de abertura.
+
+## Não versionado — 2026-11-22
+
 - Aplicada a nova estrutura da home, com navegação móvel, faixa de diagnóstico, comparação por gargalo e catálogo por objetivo. Adicionados atalhos de contato à abertura das páginas municipais.
 
 ## Não versionado — 2026-11-22

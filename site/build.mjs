@@ -13,9 +13,9 @@ const org = { '@type': 'Organization', '@id': origin + '/#organizacao', name: 'D
 const cityLink = (city) => '<a href="' + cityPath(city) + '">' + city.name + '</a>';
 const list = (items) => '<ul class="points">' + items.map((item) => '<li>' + item + '</li>').join('') + '</ul>';
 const solutionGroups = [
-  ['Automatizar a operação', 'operacao.webp', ['automacao-de-processos', 'agentes-de-ia', 'whatsapp-e-crm']],
-  ['Conectar ferramentas e dados', 'sistemas.webp', ['integracao-de-sistemas', 'dados-e-dashboards']],
-  ['Construir ou evoluir sistemas', 'atendimento.webp', ['sistemas-sob-medida', 'sites-e-portais', 'modernizacao-e-sustentacao']]
+  ['Automatizar a operação', 'fluxo-inteligente.webp', ['automacao-de-processos', 'agentes-de-ia', 'whatsapp-e-crm']],
+  ['Conectar ferramentas e dados', 'integracao-de-dados.webp', ['integracao-de-sistemas', 'dados-e-dashboards']],
+  ['Construir ou evoluir sistemas', 'software-sob-medida.webp', ['sistemas-sob-medida', 'sites-e-portais', 'modernizacao-e-sustentacao']]
 ];
 
 const featuredCards = '<div class="featured-grid">' + solutionGroups.map(([title, photo, slugs]) => {
@@ -101,8 +101,8 @@ addPage('/', 'Automação, integração de sistemas e IA para empresas',
   `<script type="module" src="/motion.js"></script>
   <section class="hero">
     <div class="hero-media" aria-hidden="true">
-      <img class="hero-photo" src="/images/infraestrutura.webp" width="1600" alt="" fetchpriority="high">
-      <video class="hero-video" data-src="/images/abertura.mp4" muted loop playsinline preload="none"></video>
+      <img class="hero-photo" src="/images/agente-de-ia.webp" width="1600" alt="" fetchpriority="high">
+      <video class="hero-video" data-src="/images/agente-de-ia.mp4" muted loop playsinline preload="none"></video>
     </div>
     <div class="wrap hero-content">
       <div>
@@ -136,7 +136,7 @@ addPage('/', 'Automação, integração de sistemas e IA para empresas',
   </section>
   </div>
   <section class="story-band" aria-labelledby="exemplo">
-    <img src="/images/operacao.webp" width="850" alt="" loading="lazy">
+    <img src="/images/fluxo-inteligente.webp" width="1200" alt="" loading="lazy">
     <div class="wrap split">
     <div><h2 id="exemplo">Do WhatsApp à próxima ação no CRM</h2><p>Imagine um orçamento que chega pelo WhatsApp, é repassado por mensagem e acaba numa planilha. Quem recebeu sabe do pedido, mas o restante da equipe pode perder o prazo sem perceber.</p><p>Este exemplo mostra como a DropFlow pode estruturar esse fluxo. A implantação depende do volume, das regras e das ferramentas do seu time.</p><a href="/servicos/whatsapp-e-crm/">Conhecer a solução de WhatsApp e CRM</a></div>
     <div class="panel"><h3>Como o fluxo pode funcionar</h3><ol class="points"><li>O contato é identificado e a oportunidade é registrada no CRM.</li><li>A solicitação é encaminhada com histórico e responsável.</li><li>Se o prazo passar, a equipe recebe um aviso para retomar o atendimento.</li></ol></div>
