@@ -2,6 +2,11 @@
 
 ## Não versionado — 2026-11-22
 
+- Removida a barra fixa da home. A abertura ganhou fotografia editorial e a navegação passou para um menu compacto. Atualizada também a apresentação das soluções.
+- Removido o botão de pausa junto com a reprodução de vídeo na abertura. A home usa transições discretas e respeita a preferência por movimento reduzido.
+
+## Não versionado — 2026-11-22
+
 - Substituída a mídia da home por ilustrações de agentes de IA, automação, integração de dados e software, incluindo o vídeo de abertura.
 
 ## Não versionado — 2026-11-22

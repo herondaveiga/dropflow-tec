@@ -13,9 +13,9 @@ const org = { '@type': 'Organization', '@id': origin + '/#organizacao', name: 'D
 const cityLink = (city) => '<a href="' + cityPath(city) + '">' + city.name + '</a>';
 const list = (items) => '<ul class="points">' + items.map((item) => '<li>' + item + '</li>').join('') + '</ul>';
 const solutionGroups = [
-  ['Automatizar a operação', 'fluxo-inteligente.webp', ['automacao-de-processos', 'agentes-de-ia', 'whatsapp-e-crm']],
-  ['Conectar ferramentas e dados', 'integracao-de-dados.webp', ['integracao-de-sistemas', 'dados-e-dashboards']],
-  ['Construir ou evoluir sistemas', 'software-sob-medida.webp', ['sistemas-sob-medida', 'sites-e-portais', 'modernizacao-e-sustentacao']]
+  ['Automatizar a operação', 'atendimento.webp', ['automacao-de-processos', 'agentes-de-ia', 'whatsapp-e-crm']],
+  ['Conectar ferramentas e dados', 'sistemas.webp', ['integracao-de-sistemas', 'dados-e-dashboards']],
+  ['Construir ou evoluir sistemas', null, ['sistemas-sob-medida', 'sites-e-portais', 'modernizacao-e-sustentacao']]
 ];
 
 const featuredCards = '<div class="featured-grid">' + solutionGroups.map(([title, photo, slugs]) => {
@@ -23,8 +23,8 @@ const featuredCards = '<div class="featured-grid">' + solutionGroups.map(([title
     const service = services.find((item) => item.slug === slug);
     return `<a href="${servicePath(service)}">${service.name}</a>`;
   });
-  return `<article class="featured-card"><div><h3>${title}</h3>${list(links)}</div>
-    <img src="/images/${photo}" width="850" height="500" alt="" loading="lazy">
+  return `<article class="featured-card">${photo ? `<img src="/images/${photo}" width="850" height="500" alt="" loading="lazy">` : ''}
+    <div><h3>${title}</h3>${list(links)}</div>
   </article>`;
 }).join('') + '</div>';
 
@@ -80,14 +80,17 @@ function addPage(path, title, description, body, parents = [], schema = []) {
 </head>
 <body${path === '/' ? ' class="home"' : ''}>
   <a class="skip" href="#conteudo">Pular para o conteúdo</a>
-  <header class="header"><div class="wrap nav">
+  ${path === '/' ? `<header class="home-masthead wrap">
+    <a class="brand" href="/"><span class="mark" aria-hidden="true">↗</span>Drop<span>Flow</span></a>
+    <details class="home-menu"><summary>Explorar o site</summary><nav aria-label="Navegação principal">${navigation}<a href="/contato/">Contato</a></nav></details>
+  </header>` : `<header class="header"><div class="wrap nav">
     <a class="brand" href="/"><span class="mark" aria-hidden="true">↗</span>Drop<span>Flow</span></a>
     <nav class="desktop-menu" aria-label="Navegação principal">${navigation}</nav>
     <div class="header-actions">
       <a class="button button-small" href="/contato/">Pedir diagnóstico</a>
       <details class="mobile-menu"><summary>Menu</summary><nav aria-label="Navegação móvel">${navigation}</nav></details>
     </div>
-  </div></header>
+  </div></header>`}
   <main id="conteudo"${path === '/' ? '' : ' class="wrap"'}>${breadcrumbs}${body}</main>
   <footer class="footer"><div class="wrap footer-row"><a class="brand" href="/"><span class="mark" aria-hidden="true">↗</span>Drop<span>Flow</span></a>
     <nav aria-label="Links do rodapé"><a href="/servicos/">Serviços</a><a href="/cidades/">Áreas atendidas</a><a href="/contato/">Contato</a><a href="https://dropflow.com.br/">DropFlow institucional</a></nav></div></footer>
@@ -99,19 +102,13 @@ const intro = (title, description, actions = '') => `<section class="intro"><h1>
 addPage('/', 'Automação, integração de sistemas e IA para empresas',
   'A DropFlow conecta sistemas, automatiza processos e implanta agentes de IA para empresas. Conheça os serviços e solicite um diagnóstico.',
   `<script type="module" src="/motion.js"></script>
-  <section class="hero">
-    <div class="hero-media" aria-hidden="true">
-      <img class="hero-photo" src="/images/agente-de-ia.webp" width="1600" alt="" fetchpriority="high">
-      <video class="hero-video" data-src="/images/agente-de-ia.mp4" muted loop playsinline preload="none"></video>
-    </div>
-    <div class="wrap hero-content">
-      <div>
+  <section class="hero wrap">
+      <div class="hero-content">
         <h1>Automação e integração <em>para empresas.</em></h1>
         <p class="lead">Conectamos ERP, CRM e WhatsApp para reduzir retrabalho e dar à sua equipe visibilidade do primeiro contato à entrega.</p>
         <div class="actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a class="button secondary" href="#solucoes">Explorar soluções</a></div>
       </div>
-    </div>
-    <button class="video-control" type="button" hidden>Pausar vídeo</button>
+      <figure class="hero-media"><img class="hero-photo" src="/images/operacao.webp" width="850" alt="" fetchpriority="high"></figure>
   </section>
   <div class="wrap">
   <section class="diagnostic-strip" aria-labelledby="diagnostico">
@@ -136,7 +133,6 @@ addPage('/', 'Automação, integração de sistemas e IA para empresas',
   </section>
   </div>
   <section class="story-band" aria-labelledby="exemplo">
-    <img src="/images/fluxo-inteligente.webp" width="1200" alt="" loading="lazy">
     <div class="wrap split">
     <div><h2 id="exemplo">Do WhatsApp à próxima ação no CRM</h2><p>Imagine um orçamento que chega pelo WhatsApp, é repassado por mensagem e acaba numa planilha. Quem recebeu sabe do pedido, mas o restante da equipe pode perder o prazo sem perceber.</p><p>Este exemplo mostra como a DropFlow pode estruturar esse fluxo. A implantação depende do volume, das regras e das ferramentas do seu time.</p><a href="/servicos/whatsapp-e-crm/">Conhecer a solução de WhatsApp e CRM</a></div>
     <div class="panel"><h3>Como o fluxo pode funcionar</h3><ol class="points"><li>O contato é identificado e a oportunidade é registrada no CRM.</li><li>A solicitação é encaminhada com histórico e responsável.</li><li>Se o prazo passar, a equipe recebe um aviso para retomar o atendimento.</li></ol></div>
