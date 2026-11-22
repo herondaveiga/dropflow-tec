@@ -2,6 +2,10 @@
 
 ## Não versionado — 2026-11-21
 
+- Reorganizada a home como página de vendas, com paleta grafite e amarelo, serviços em destaque e perguntas frequentes.
+
+## Não versionado — 2026-11-21
+
 - Atualizado o visual da DropFlow com fotografia, paleta azul e âmbar e nova apresentação dos serviços na página inicial.
 
 ## Não versionado — 2026-11-21

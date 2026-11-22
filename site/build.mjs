@@ -15,14 +15,15 @@ const list = (items) => '<ul class="points">' + items.map((item) => '<li>' + ite
 const featuredSolutions = [
   ['automacao-de-processos', 'operacao.webp'],
   ['integracao-de-sistemas', 'sistemas.webp'],
-  ['agentes-de-ia', 'atendimento.webp']
+  ['agentes-de-ia', 'atendimento.webp'],
+  ['sistemas-sob-medida', null]
 ];
 
 const featuredCards = '<div class="featured-grid">' + featuredSolutions.map(([slug, photo]) => {
   const service = services.find((item) => item.slug === slug);
   return `<a class="featured-card" href="${servicePath(service)}">
-    <img src="/images/${photo}" width="850" height="500" alt="" loading="lazy">
-    <div><h3>${service.name}</h3><p>${service.description}</p></div>
+    <div><span class="icon" aria-hidden="true">${service.icon}</span><h3>${service.name}</h3><p>${service.description}</p><span class="detail">Ver serviço</span></div>${photo ? `
+    <img src="/images/${photo}" width="850" height="500" alt="" loading="lazy">` : ''}
   </a>`;
 }).join('') + '</div>';
 
@@ -86,11 +87,13 @@ const intro = (title, description) => `<section class="intro"><h1>${title}</h1><
 addPage('/', 'Automação, integração de sistemas e IA para empresas',
   'A DropFlow conecta sistemas, automatiza processos e implanta agentes de IA para empresas. Conheça os serviços e solicite um diagnóstico.',
   `<section class="hero">
-    <img class="hero-photo" src="/images/infraestrutura.webp" width="1600" alt="" fetchpriority="high">
     <div class="wrap hero-content">
-      <h1>Automação e integração<br> <em>para empresas.</em></h1>
-      <p class="lead">Conectamos ERP, CRM e WhatsApp, automatizamos rotinas e implantamos agentes de IA para atendimento e vendas.</p>
-      <div class="actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a class="button secondary" href="/servicos/">Explorar serviços</a></div>
+      <div>
+        <h1>Automação e integração <em>para empresas.</em></h1>
+        <p class="lead">Conectamos ERP, CRM e WhatsApp, automatizamos rotinas e implantamos agentes de IA para atendimento e vendas.</p>
+        <div class="actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a class="button secondary" href="/servicos/">Explorar serviços</a></div>
+      </div>
+      <div class="hero-media"><img class="hero-photo" src="/images/infraestrutura.webp" width="1600" alt="" fetchpriority="high"></div>
     </div>
   </section>
   <div class="wrap">
@@ -104,6 +107,11 @@ addPage('/', 'Automação, integração de sistemas e IA para empresas',
     <li><h3>Implantar por etapas</h3><p>Começar pelo fluxo prioritário, testar exceções e validar a entrega com a equipe.</p></li>
     <li><h3>Acompanhar o uso</h3><p>Observar os resultados da primeira versão e avaliar as próximas melhorias.</p></li></ol></section>
   <section class="section"><div class="section-head"><h2>Atendimento no Vale do Itajaí</h2><a href="/cidades/">Explorar áreas atendidas</a></div>${cityCards(cities)}</section>
+  <section class="section faq" aria-labelledby="duvidas"><h2 id="duvidas">Perguntas frequentes</h2>
+    <div><details><summary>Preciso trocar os sistemas que já uso?</summary><p>O diagnóstico começa pelas ferramentas atuais. Se elas disponibilizarem APIs ou outra forma segura de integração, podemos conectá-las ao fluxo.</p></details>
+    <details><summary>Posso começar automatizando um único processo?</summary><p>Sim. Podemos começar por uma rotina prioritária, testar exceções com a equipe e usar o resultado para planejar as próximas etapas.</p></details>
+    <details><summary>O que devo levar para o diagnóstico?</summary><p>Descreva o processo, quem participa dele e quais sistemas são usados. Exemplos de atrasos ou retrabalho ajudam a definir o primeiro passo.</p></details></div>
+  </section>
   ${closing}</div>`);
 
 addPage('/servicos/', 'Serviços de tecnologia para empresas',
