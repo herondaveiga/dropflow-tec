@@ -108,7 +108,13 @@ addPage('/', 'Automação, integração de sistemas e IA para empresas',
         <p class="lead">Conectamos ERP, CRM e WhatsApp para reduzir retrabalho e dar à sua equipe visibilidade do primeiro contato à entrega.</p>
         <div class="actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a class="button secondary" href="#solucoes">Explorar soluções</a></div>
       </div>
-      <figure class="hero-media"><img class="hero-photo" src="/images/operacao.webp" width="850" alt="" fetchpriority="high"></figure>
+      <figure class="hero-media">
+        <img class="hero-photo" src="/images/operacao.webp" width="850" alt="" fetchpriority="high">
+        <figcaption class="hero-flow">
+          <strong>Da conversa ao acompanhamento</strong>
+          <ol><li>Pedido no WhatsApp</li><li>Triagem com IA</li><li>Registro no CRM</li></ol>
+        </figcaption>
+      </figure>
   </section>
   <div class="wrap">
   <section class="diagnostic-strip" aria-labelledby="diagnostico">
@@ -128,14 +134,15 @@ addPage('/', 'Automação, integração de sistemas e IA para empresas',
       </details>`).join('')}
     </div>
   </section>
-  <section class="section home-solutions" id="solucoes"><div class="section-head"><h2>Soluções para sua operação</h2><a href="/servicos/">Ver todos os serviços</a></div>
-    ${featuredCards}
-  </section>
   </div>
+  <section class="section home-solutions" id="solucoes"><div class="wrap"><div class="section-head"><h2>Soluções para sua operação</h2><a href="/servicos/">Ver todos os serviços</a></div>
+    ${featuredCards}
+  </div>
+  </section>
   <section class="story-band" aria-labelledby="exemplo">
     <div class="wrap split">
     <div><h2 id="exemplo">Do WhatsApp à próxima ação no CRM</h2><p>Imagine um orçamento que chega pelo WhatsApp, é repassado por mensagem e acaba numa planilha. Quem recebeu sabe do pedido, mas o restante da equipe pode perder o prazo sem perceber.</p><p>Este exemplo mostra como a DropFlow pode estruturar esse fluxo. A implantação depende do volume, das regras e das ferramentas do seu time.</p><a href="/servicos/whatsapp-e-crm/">Conhecer a solução de WhatsApp e CRM</a></div>
-    <div class="panel"><h3>Como o fluxo pode funcionar</h3><ol class="points"><li>O contato é identificado e a oportunidade é registrada no CRM.</li><li>A solicitação é encaminhada com histórico e responsável.</li><li>Se o prazo passar, a equipe recebe um aviso para retomar o atendimento.</li></ol></div>
+    <div class="panel story-steps"><h3>Como o fluxo pode funcionar</h3><ol class="points"><li>O contato é identificado e a oportunidade é registrada no CRM.</li><li>A solicitação é encaminhada com histórico e responsável.</li><li>Se o prazo passar, a equipe recebe um aviso para retomar o atendimento.</li></ol></div>
     </div>
   </section>
   <div class="wrap">

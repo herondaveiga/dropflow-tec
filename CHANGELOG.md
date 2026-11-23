@@ -1,5 +1,9 @@
 # Changelog
 
+## Não versionado — 2026-11-23
+
+- Redesenhada a home com abertura de maior impacto, fluxo de automação integrado à fotografia, catálogo editorial e novo tratamento visual para o diagnóstico e a demonstração.
+
 ## Não versionado — 2026-11-22
 
 - Removida a barra fixa da home. A abertura ganhou fotografia editorial e a navegação passou para um menu compacto. Atualizada também a apresentação das soluções.
