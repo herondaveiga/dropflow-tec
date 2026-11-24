@@ -5,6 +5,7 @@ import { cities, services } from './content.mjs';
 
 const origin = 'https://dropflow.tec.br';
 const contact = 'https://wa.me/5547997676672';
+const whatsappIcon = '<svg aria-hidden="true" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.6a8 8 0 0 1-11.7 7.1L4 20l1.3-4.3A8 8 0 1 1 20 11.6Z"/><path d="M9 8.2c-.6-.1-1 .5-1 1.2 0 2.7 3.1 5.8 5.8 5.8.7 0 1.3-.4 1.2-1l-1.8-1c-.3-.2-.5 0-.8.3l-.2.2a6 6 0 0 1-2.9-2.9l.2-.2c.3-.3.5-.5.3-.8Z"/></svg>';
 const pages = new Map();
 const servicePath = (service) => '/servicos/' + service.slug + '/';
 const cityPath = (city) => '/cidades/' + city.slug + '/';
@@ -82,7 +83,8 @@ function addPage(path, title, description, body, parents = [], schema = []) {
   <a class="skip" href="#conteudo">Pular para o conteúdo</a>
   ${path === '/' ? `<header class="home-masthead wrap">
     <a class="brand" href="/"><span class="mark" aria-hidden="true">↗</span>Drop<span>Flow</span></a>
-    <details class="home-menu"><summary>Explorar o site</summary><nav aria-label="Navegação principal">${navigation}<a href="/contato/">Contato</a></nav></details>
+    <nav class="home-navigation" aria-label="Navegação principal">${navigation}<a href="/contato/">Contato</a></nav>
+    <a class="button button-small home-whatsapp" href="${contact}">Conversar no WhatsApp</a>
   </header>` : `<header class="header"><div class="wrap nav">
     <a class="brand" href="/"><span class="mark" aria-hidden="true">↗</span>Drop<span>Flow</span></a>
     <nav class="desktop-menu" aria-label="Navegação principal">${navigation}</nav>
@@ -94,6 +96,7 @@ function addPage(path, title, description, body, parents = [], schema = []) {
   <main id="conteudo"${path === '/' ? '' : ' class="wrap"'}>${breadcrumbs}${body}</main>
   <footer class="footer"><div class="wrap footer-row"><a class="brand" href="/"><span class="mark" aria-hidden="true">↗</span>Drop<span>Flow</span></a>
     <nav aria-label="Links do rodapé"><a href="/servicos/">Serviços</a><a href="/cidades/">Áreas atendidas</a><a href="/contato/">Contato</a><a href="https://dropflow.com.br/">DropFlow institucional</a></nav></div></footer>
+  <a class="whatsapp-float" href="${contact}" aria-label="Conversar no WhatsApp com a DropFlow">${whatsappIcon}</a>
 </body></html>`);
 }
 

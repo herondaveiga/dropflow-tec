@@ -1,16 +1,4 @@
-const menu = document.querySelector('.home-menu');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-
-menu.querySelector('nav').addEventListener('click', (event) => {
-  if (event.target.closest('a')) menu.open = false;
-});
-
-menu.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && menu.open) {
-    menu.open = false;
-    menu.querySelector('summary').focus();
-  }
-});
 
 if ('IntersectionObserver' in window) {
   const reveal = new IntersectionObserver((entries, observer) => {

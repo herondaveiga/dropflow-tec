@@ -43,13 +43,13 @@ main [id], main[id] { scroll-margin-top: 6rem; }
 .button.secondary:hover { background: #292823; }
 .skip { position: fixed; left: 1rem; top: -6rem; z-index: 4; padding: 0.75rem; background: var(--surface); }
 .skip:focus { top: 1rem; }
-.home-masthead { display: flex; justify-content: space-between; align-items: center; padding-block: 1.5rem; position: relative; z-index: 2; }
-.home-menu summary { cursor: pointer; padding: 0.65rem 1.1rem; border: 1px solid #6a675e; border-radius: 100px; }
-.home-menu[open] summary, .home-menu summary:hover { border-color: var(--yellow); }
-.home-menu nav { position: absolute; right: 0; top: calc(100% - 0.8rem); display: grid; gap: 0.2rem; min-width: 13rem; padding: 0.55rem; background: var(--surface); border: 1px solid var(--border); border-radius: 0.5rem; box-shadow: 0 0.8rem 2.2rem #0007; }
-.home-menu a { display: block; padding: 0.55rem 0.65rem; color: var(--ink); text-decoration: none; }
-.home-menu a:hover, .home-menu a:focus-visible { background: var(--paper); color: var(--yellow); }
-.home-masthead { position: absolute; inset: 0 0 auto; }
+.home-masthead { position: absolute; inset: 0 0 auto; z-index: 2; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-block: 1.5rem; }
+.home-navigation { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.3rem clamp(0.75rem, 2.2vw, 1.65rem); }
+.home-navigation a { display: inline-flex; align-items: center; min-height: 2rem; color: var(--ink); font-size: 0.94rem; text-decoration: none; }
+.home-navigation a:hover, .home-navigation a:focus-visible { color: var(--yellow); text-decoration: underline; }
+.home-whatsapp { flex-shrink: 0; }
+.whatsapp-float { position: fixed; z-index: 3; right: max(1rem, env(safe-area-inset-right)); bottom: max(1rem, env(safe-area-inset-bottom)); display: grid; place-items: center; width: 3.4rem; height: 3.4rem; color: #fff; background: #146c42; border: 1px solid #ffffff82; border-radius: 50%; box-shadow: 0 0.35rem 1rem #0006; }
+.whatsapp-float:hover { background: #0c5533; }
 .hero { position: relative; isolation: isolate; display: grid; min-height: 100svh; overflow: hidden; background: #151510; }
 .hero-backdrop, .hero-photo, .hero-backdrop::after { position: absolute; inset: 0; width: 100%; height: 100%; }
 .hero-backdrop { z-index: -1; overflow: hidden; }
@@ -65,7 +65,6 @@ main [id], main[id] { scroll-margin-top: 6rem; }
 .hero-flow li { position: relative; padding: 0.7rem 0.55rem; border-top: 2px solid var(--yellow); background: #29261e; font-size: 0.87rem; }
 .hero .secondary { background: #151510a6; }
 .hero .secondary:hover { background: #292823; }
-.home-masthead .home-menu summary { background: #151510d9; }
 .story-band { position: relative; isolation: isolate; padding-block: clamp(2.6rem, 6vw, 5.5rem); background: #1c1b17; border-block: 1px solid var(--border); }
 .story-band::before { position: absolute; inset: 0; z-index: -1; content: ""; background: linear-gradient(90deg,#141310fa,#141310a6), url("/images/atendimento.webp") center 58% / cover; }
 .story-band .split { align-items: center; }
@@ -137,7 +136,11 @@ main [id], main[id] { scroll-margin-top: 6rem; }
 
 @media (max-width: 760px) {
   .featured-grid, .split, .faq { grid-template-columns: 1fr; }
-  .hero-inner { grid-template-columns: 1fr; }
+  .hero-inner { grid-template-columns: 1fr; padding-top: 2.5rem; }
+  .home-masthead { position: relative; inset: auto; flex-wrap: wrap; gap: 0.4rem 0.75rem; padding-block: 1rem; }
+  .home-navigation { order: 1; justify-content: flex-start; width: 100%; }
+  .home-navigation a { font-size: 0.88rem; }
+  .footer-row { padding-bottom: 4.75rem; }
   .hero-photo { object-position: 62% center; }
   .hero-backdrop::after { background: linear-gradient(0deg,#101010 0%,#101010bb 62%,#101010a8 100%); }
   .nav .desktop-menu { display: none; }

@@ -2,6 +2,10 @@
 
 ## Não versionado — 2026-11-24
 
+- Menu da home sempre visível, com atalho direto no cabeçalho e botão flutuante de WhatsApp em todas as páginas.
+
+## Não versionado — 2026-11-24
+
 - Aplicada fotografia de tela cheia na abertura, com entrada em sequência, efeitos de profundidade e transições nas seções da home. Mantida a alternativa com movimento reduzido.
 
 ## Não versionado — 2026-11-23
