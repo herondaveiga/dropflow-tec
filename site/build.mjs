@@ -1,7 +1,18 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { cities, services } from './content.mjs';
+import { cities as localCities, services } from './content.mjs';
+import { municipalContent } from './municipal-content.mjs';
+
+const { states, municipalities } = JSON.parse(await readFile(new URL('./municipalities.json', import.meta.url), 'utf8'));
+const cities = municipalities.map((row) => {
+  const city = municipalContent(row, states);
+  const localCity = localCities.find((item) => item.slug === city.slug);
+  return { ...city, ...localCity, featuredLocally: Boolean(localCity) };
+});
+const collator = new Intl.Collator('pt-BR');
+const citiesByState = Map.groupBy(cities, (city) => city.uf);
+const citiesByRegion = Map.groupBy(cities, (city) => city.uf + ':' + city.region);
 
 const origin = 'https://dropflow.tec.br';
 const contact = 'https://wa.me/5547997676672';
@@ -11,7 +22,7 @@ const servicePath = (service) => '/servicos/' + service.slug + '/';
 const cityPath = (city) => '/cidades/' + city.slug + '/';
 const escape = (value) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const org = { '@type': 'Organization', '@id': origin + '/#organizacao', name: 'DropFlow', url: origin };
-const cityLink = (city) => '<a href="' + cityPath(city) + '">' + city.name + '</a>';
+const cityLink = (city) => '<a href="' + cityPath(city) + '">' + escape(city.name) + '</a>';
 const list = (items) => '<ul class="points">' + items.map((item) => '<li>' + item + '</li>').join('') + '</ul>';
 const solutionGroups = [
   ['Automatizar a operação', 'atendimento.webp', ['automacao-de-processos', 'agentes-de-ia', 'whatsapp-e-crm']],
@@ -43,7 +54,7 @@ const serviceCards = (items) => '<div class="cards">' + items.map((item) => `
   <a class="detail" aria-label="Ver escopo de ${item.name}" href="${servicePath(item)}">Ver escopo</a></article>`).join('') + '</div>';
 
 const cityCards = (items) => '<div class="cards city-cards">' + items.map((item) => `
-  <article class="card"><p class="tag">Santa Catarina</p><h3>${cityLink(item)}</h3>
+  <article class="card"><p class="tag">${item.state ?? 'Santa Catarina'}</p><h3>${cityLink(item)}</h3>
   <p>${item.description}</p></article>`).join('') + '</div>';
 
 const closing = `<section class="closing"><div><h2>Qual processo precisa funcionar melhor?</h2>
@@ -155,7 +166,7 @@ addPage('/', 'Automação, integração de sistemas e IA para empresas',
     <li><h3>Acompanhar o uso</h3><p>Combinamos o que observar depois da implantação, como tempo de resposta, retrabalho ou solicitações fora do prazo.</p></li></ol></section>
   <section class="section split" aria-labelledby="tecnologia"><div><h2 id="tecnologia">Tecnologia que se encaixa no seu fluxo</h2><p>O diagnóstico identifica quais conexões são viáveis e o que precisa de desenvolvimento sob medida.</p></div>
     <div class="panel"><ul class="points"><li><strong>APIs e webhooks</strong> para trocar dados entre ERP, CRM e outras ferramentas.</li><li><strong>n8n</strong> para automatizar rotinas e encaminhar exceções.</li><li><strong>Agentes de IA</strong> para triagem e atendimento com passagem para uma pessoa.</li></ul></div></section>
-  <section class="section"><div class="section-head"><div><h2>DropFlow no Vale do Itajaí</h2><p>Projetamos automações, integrações e sistemas em torno do trabalho que sua equipe já faz. Conheça as soluções por cidade ou saiba mais sobre a <a href="https://dropflow.com.br/">DropFlow</a>.</p></div><a href="/cidades/">Explorar áreas atendidas</a></div>${cityCards(cities)}</section>
+  <section class="section"><div class="section-head"><div><h2>DropFlow no Vale do Itajaí</h2><p>Projetamos automações, integrações e sistemas em torno do trabalho que sua equipe já faz. Conheça as soluções por cidade ou saiba mais sobre a <a href="https://dropflow.com.br/">DropFlow</a>.</p></div><a href="/cidades/">Explorar áreas atendidas</a></div>${cityCards(localCities)}</section>
   <section class="section faq" aria-labelledby="duvidas"><h2 id="duvidas">Perguntas frequentes</h2>
     <div><details><summary>Preciso trocar os sistemas que já uso?</summary><p>O diagnóstico começa pelas ferramentas atuais. Se elas disponibilizarem APIs ou outra forma segura de integração, podemos conectá-las ao fluxo.</p></details>
     <details><summary>Posso começar automatizando um único processo?</summary><p>Sim. Podemos começar por uma rotina prioritária, testar exceções com a equipe e usar o resultado para planejar as próximas etapas.</p></details>
@@ -179,32 +190,50 @@ for (const service of services) {
     [['Serviços', '/servicos/']], [{ '@type': 'Service', name: service.name, description: service.description, provider: { '@id': org['@id'] } }]);
 }
 
-for (const [path, title, description, parents] of [
-  ['/cidades/', 'Áreas atendidas pela DropFlow', 'Conheça as soluções de automação, integração de sistemas e IA da DropFlow em Timbó, Blumenau e Indaial.', []],
-  ['/cidades/sc/', 'Tecnologia para empresas em Santa Catarina', 'Conheça as soluções da DropFlow para empresas em Santa Catarina e veja as aplicações em Timbó, Blumenau e Indaial.', [['Cidades', '/cidades/']]]
-]) {
-  const content = path === '/cidades/'
-    ? '<section class="panel region"><h2>Santa Catarina</h2><p>Veja como automação, integração e IA podem se aplicar à sua operação no Vale do Itajaí.</p><a href="/cidades/sc/">Explorar cidades de Santa Catarina</a></section>'
-    : '<section class="panel region"><h2>Como funciona o atendimento</h2><p>O diagnóstico pode começar on-line. Durante o planejamento, a equipe avalia volumes, sistemas envolvidos e etapas de implantação.</p></section>';
-  addPage(path, title, description, intro(title, description) + content +
-    '<section class="section"><h2>Escolha sua cidade</h2>' + cityCards(cities) + '</section>' + closing, parents,
-    [{ '@type': 'CollectionPage', name: title, mainEntity: { '@type': 'ItemList', itemListElement: cities.map((city, index) => ({
-      '@type': 'ListItem', position: index + 1, name: city.name, url: origin + cityPath(city)
-    })) } }]);
+const cityIndex = [['Cidades', '/cidades/']];
+const statePath = (uf) => '/cidades/' + uf + '/';
+const stateItems = [...citiesByState.keys()].sort((a, b) => collator.compare(states[a], states[b]));
+const directory = (title, description, heading, links) => intro(title, description) +
+  '<section class="section directory"><h2>' + heading + '</h2>' + list(links) + '</section>' + closing;
+const nationalTitle = 'Áreas atendidas pela DropFlow';
+const nationalDescription = 'Encontre aplicações de automação, integração e IA por município. O diagnóstico da DropFlow pode começar on-line.';
+addPage('/cidades/', nationalTitle, nationalDescription, directory(nationalTitle, nationalDescription, 'Escolha uma unidade da federação',
+  stateItems.map((uf) => `<a href="${statePath(uf)}">${escape(states[uf])}</a> <span>(${citiesByState.get(uf).length})</span>`)),
+  [], [{ '@type': 'CollectionPage', name: nationalTitle }]);
+
+for (const uf of stateItems) {
+  const title = 'Tecnologia para empresas em ' + states[uf];
+  const description = `Explore os municípios de ${states[uf]} no diretório da DropFlow e veja exemplos de automação, integração e IA para sua operação.`;
+  const stateCities = citiesByState.get(uf).sort((a, b) => collator.compare(a.name, b.name));
+  addPage(statePath(uf), title, description, directory(title, escape(description), 'Escolha sua cidade', stateCities.map(cityLink)), cityIndex,
+    [{ '@type': 'CollectionPage', name: title }]);
 }
 
 for (const city of cities) {
-  const title = city.focus + ' em ' + city.name;
+  const title = city.focus + ' em ' + city.name + (city.featuredLocally ? '' : '/' + city.uf.toUpperCase());
   const localServices = city.services.map((slug) => services.find((service) => service.slug === slug));
-  addPage(cityPath(city), title, city.description, intro(title, city.description,
+  const regionalCities = citiesByRegion.get(city.uf + ':' + city.region) ?? [];
+  const peers = [...regionalCities, ...citiesByState.get(city.uf)];
+  const nearby = [...new Set(peers)].filter((candidate) => candidate !== city).slice(0, 6);
+  const shares = city.economicShares.length ? `<p>Participação no valor adicionado bruto municipal em 2021. O recorte de serviços exclui a administração e outros serviços públicos.</p>
+    <dl>${city.economicShares.map(([sector, share]) => `<div><dt>${sector}</dt><dd>${share}</dd></div>`).join('')}</dl>
+    <p><a href="https://sidra.ibge.gov.br/tabela/5938">Fonte dos indicadores econômicos</a></p>` : '';
+  addPage(cityPath(city), title, city.description, intro(escape(title), escape(city.description),
     '<div class="actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a class="button secondary" href="' + contact + '">Conversar no WhatsApp</a></div>') +
-    `<section class="section split"><div><h2>Por onde começar em ${city.name}</h2><p>${city.context}</p></div>
-    <div class="panel"><h2>Exemplos de aplicação</h2>${list(city.scenarios)}</div></section>
+    `<section class="section split"><div><h2>Por onde começar em ${escape(city.name)}</h2><p>${escape(city.context)}</p>
+    <h3>Como avaliar a primeira entrega</h3><p>${city.measure}</p><h3>O que levar para o diagnóstico on-line</h3><p>${city.preparation}</p></div>
+    <div class="panel"><h2>Exemplos de aplicação</h2>${list(city.scenarios)}${city.secondaryScenario ? `
+    <h3>Outro processo que pode ser avaliado</h3><p>${city.secondaryScenario}</p>` : ''}</div></section>
+    <section class="section split local-facts"><div><h2>Contexto de ${escape(city.name)}</h2>
+    <p>${city.region ? 'Região Geográfica Imediata de ' + escape(city.region) + '. ' : ''}${city.population ? city.population + ' habitantes no Censo 2022. ' : ''}Código IBGE ${city.ibge}.</p>${city.region && regionalCities.length > 1 ? `
+    <p>O diretório inclui ${regionalCities.length} municípios desse recorte regional na mesma UF. Consulte os links abaixo para comparar aplicações em outras cidades.</p>` : ''}
+    <p><a href="https://www.ibge.gov.br/cidades-e-estados/${city.uf}.html">Perfil estadual no IBGE</a> · <a href="https://sidra.ibge.gov.br/tabela/4709">Fonte da população</a></p></div>
+    <div>${shares}</div></section>
     <section class="section"><h2>Soluções para empresas em ${city.name}</h2>${serviceCards(localServices)}</section>
-    <section class="section"><h2>Atendimento em outras cidades</h2>${cityCards(cities.filter((item) => item !== city))}</section>` + closing,
-    [['Cidades', '/cidades/'], ['Santa Catarina', '/cidades/sc/']],
+    <section class="section directory"><h2>Outras cidades de ${escape(city.state)}</h2>${list(nearby.map(cityLink))}</section>` + closing,
+    [...cityIndex, [city.state, statePath(city.uf)]],
     [{ '@type': 'Service', name: title, provider: { '@id': org['@id'] },
-      areaServed: { '@type': 'City', name: city.name, containedInPlace: { '@type': 'State', name: 'Santa Catarina' } } }]);
+      areaServed: { '@type': 'City', name: city.name, containedInPlace: { '@type': 'State', name: city.state } } }]);
 }
 
 addPage('/contato/', 'Contato e diagnóstico',

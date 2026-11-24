@@ -2,6 +2,10 @@
 
 ## Não versionado — 2026-11-24
 
+- Expandido o diretório para 1.500 municípios e 27 unidades da federação, com indicadores do IBGE, exemplos de aplicação por atividade econômica, links regionais e URLs canônicas no sitemap.
+
+## Não versionado — 2026-11-24
+
 - Menu da home sempre visível, com atalho direto no cabeçalho e botão flutuante de WhatsApp em todas as páginas.
 
 ## Não versionado — 2026-11-24
