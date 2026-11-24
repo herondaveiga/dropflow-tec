@@ -19,12 +19,14 @@ if ('IntersectionObserver' in window) {
       observer.unobserve(entry.target);
       if (!reducedMotion.matches) {
         entry.target.animate(
-          [{ opacity: 0.72, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }],
-          { duration: 350, easing: 'ease-out' }
+          [{ opacity: 0.25, transform: 'translateY(24px)' }, { opacity: 1, transform: 'translateY(0)' }],
+          { duration: 620, easing: 'cubic-bezier(.2,.75,.3,1)' }
         );
       }
     }
   }, { threshold: 0.15 });
 
-  document.querySelectorAll('.hero-media, .featured-grid, .story-band .split').forEach((element) => reveal.observe(element));
+  document.querySelectorAll(
+    '.diagnostic-strip li, .problem-cards, .featured-card, .story-band .split, .method-list li, .city-cards .card, .faq, .closing'
+  ).forEach((element) => reveal.observe(element));
 }

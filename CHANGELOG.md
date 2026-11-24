@@ -1,5 +1,9 @@
 # Changelog
 
+## Não versionado — 2026-11-24
+
+- Aplicada fotografia de tela cheia na abertura, com entrada em sequência, efeitos de profundidade e transições nas seções da home. Mantida a alternativa com movimento reduzido.
+
 ## Não versionado — 2026-11-23
 
 - Redesenhada a home com abertura de maior impacto, fluxo de automação integrado à fotografia, catálogo editorial e novo tratamento visual para o diagnóstico e a demonstração.

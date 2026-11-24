@@ -102,19 +102,19 @@ const intro = (title, description, actions = '') => `<section class="intro"><h1>
 addPage('/', 'Automação, integração de sistemas e IA para empresas',
   'A DropFlow conecta sistemas, automatiza processos e implanta agentes de IA para empresas. Conheça os serviços e solicite um diagnóstico.',
   `<script type="module" src="/motion.js"></script>
-  <section class="hero wrap">
+  <section class="hero" aria-labelledby="abertura">
+    <div class="hero-backdrop" aria-hidden="true"><img class="hero-photo" src="/images/operacao.webp" width="850" alt="" fetchpriority="high"></div>
+    <div class="hero-inner wrap">
       <div class="hero-content">
-        <h1>Automação e integração <em>para empresas.</em></h1>
+        <h1 id="abertura">Automação e integração <em>para empresas.</em></h1>
         <p class="lead">Conectamos ERP, CRM e WhatsApp para reduzir retrabalho e dar à sua equipe visibilidade do primeiro contato à entrega.</p>
         <div class="actions"><a class="button" href="/contato/">Pedir diagnóstico</a><a class="button secondary" href="#solucoes">Explorar soluções</a></div>
       </div>
-      <figure class="hero-media">
-        <img class="hero-photo" src="/images/operacao.webp" width="850" alt="" fetchpriority="high">
-        <figcaption class="hero-flow">
+      <div class="hero-flow">
           <strong>Da conversa ao acompanhamento</strong>
           <ol><li>Pedido no WhatsApp</li><li>Triagem com IA</li><li>Registro no CRM</li></ol>
-        </figcaption>
-      </figure>
+      </div>
+    </div>
   </section>
   <div class="wrap">
   <section class="diagnostic-strip" aria-labelledby="diagnostico">
