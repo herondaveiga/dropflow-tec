@@ -116,10 +116,13 @@ const intro = (title, description, actions = '') => `<section class="intro"><h1>
 addPage('/', 'Automação, integração de sistemas e IA para empresas',
   'A DropFlow conecta sistemas, automatiza processos e implanta agentes de IA para empresas. Conheça os serviços e solicite um diagnóstico.',
   `<script type="module" src="/motion.js"></script>
+  <div class="hero-scene">
   <section class="hero" aria-labelledby="abertura">
     <div class="hero-backdrop" aria-hidden="true">
-      <span class="hero-wordmark">DropFlow</span>
+      <div class="hero-clouds hero-clouds-distant"></div>
+      <span class="hero-wordmark">${Array.from('DropFlow', (letter, index) => `<span style="--letter: ${index}">${letter}</span>`).join('')}</span>
       <img class="hero-photo" src="/images/agente-de-ia.webp" width="1600" height="900" alt="" fetchpriority="high">
+      <div class="hero-clouds hero-clouds-near"></div>
     </div>
     <div class="hero-inner wrap">
       <h1 id="abertura">Automação e integração <em>para empresas.</em></h1>
@@ -132,7 +135,9 @@ addPage('/', 'Automação, integração de sistemas e IA para empresas',
           <ol><li>Pedido no WhatsApp</li><li>Triagem com IA</li><li>Registro no CRM</li></ol>
       </div>
     </div>
+    <div class="hero-cloud-exit" aria-hidden="true"></div>
   </section>
+  </div>
   <div class="wrap">
   <section class="home-statement" aria-label="Como trabalhamos">
     <p>Conectamos o que sua equipe já usa para que <em>o trabalho flua.</em></p>

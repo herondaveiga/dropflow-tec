@@ -269,16 +269,62 @@ main [id], main[id] { scroll-margin-top: 6rem; }
     from { transform: scale(1.09); }
     to { transform: scale(1); }
   }
-  @supports (animation-timeline: view()) {
-    .hero-backdrop {
-      animation: cena-rolagem linear both;
-      animation-timeline: view();
-      animation-range: exit 0% exit 100%;
-    }
-    @keyframes cena-rolagem {
-      from { transform: translateY(0); }
-      to { transform: translateY(19%); }
-    }
+}
+
+.hero-scene { --scene-progress: 0; --scene-x: 0px; --scene-y: 0px; }
+.hero-clouds, .hero-cloud-exit { position: absolute; inset: 0; pointer-events: none; }
+.hero-clouds-distant {
+  background:
+    radial-gradient(ellipse 48% 16% at 13% 50%, #ffcb3229, transparent 76%),
+    radial-gradient(ellipse 45% 19% at 81% 61%, #d99a3640, transparent 75%),
+    radial-gradient(ellipse 31% 20% at 70% 41%, #e6c17f27, transparent 74%);
+}
+.hero-clouds-near {
+  background:
+    radial-gradient(ellipse 39% 15% at 29% 67%, #8b602b74, transparent 77%),
+    radial-gradient(ellipse 48% 20% at 68% 78%, #ba80396b, transparent 72%),
+    radial-gradient(ellipse 40% 16% at 94% 57%, #e6c17f30, transparent 76%);
+}
+.hero-cloud-exit {
+  z-index: 1;
+  visibility: hidden;
+  background:
+    radial-gradient(ellipse 97% 65% at 29% 85%, #594222, transparent 76%),
+    radial-gradient(ellipse 96% 85% at 82% 75%, #392b1a, transparent 75%),
+    linear-gradient(transparent, var(--paper) 75%);
+}
+.hero-wordmark span { display: inline-block; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-scene.scene-motion::after { content: ""; display: block; height: 65svh; }
+  .scene-motion .hero { position: sticky; top: 0; }
+  .scene-motion .hero-backdrop .hero-photo {
+    left: calc(50% + var(--scene-x) * 0.45);
+    translate: -69% calc(-43% + var(--scene-y) * 0.45 - var(--scene-progress) * 29svh);
+    opacity: calc(1 - var(--scene-progress));
+    animation-fill-mode: backwards;
+    transition: left 180ms ease-out;
+  }
+  .scene-motion .hero-clouds-distant {
+    transform: translate(calc(var(--scene-x) * 0.35), calc(var(--scene-y) * 0.35 - var(--scene-progress) * 12svh)) scale(1.12);
+  }
+  .scene-motion .hero-clouds-near {
+    transform: translate(var(--scene-x), calc(var(--scene-y) - var(--scene-progress) * 33svh)) scale(1.16);
+  }
+  .scene-motion .hero-wordmark {
+    animation: none;
+    opacity: calc(1 - var(--scene-progress) * 1.7);
+    translate: -50% calc(-50% - var(--scene-progress) * 23svh);
+  }
+  .scene-motion .hero-wordmark span { animation: letra-cena 850ms cubic-bezier(.2,.75,.25,1) calc(var(--letter) * 48ms) both; }
+  .scene-motion .hero-cloud-exit {
+    visibility: visible;
+    opacity: var(--scene-progress);
+    transform: translateY(calc((1 - var(--scene-progress)) * 90%));
+  }
+  @keyframes letra-cena {
+    from { opacity: 0; transform: translateY(0.45em); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
 @keyframes abertura-foto {

@@ -2,6 +2,10 @@
 
 ## Não versionado — 2026-11-27
 
+- Adaptada a abertura com névoa em camadas, entrada letra a letra, paralaxe no cursor e saída controlada pela rolagem. Preservados os textos e as cores da DropFlow.
+
+## Não versionado — 2026-11-27
+
 - Reorganizada a home com apresentação no topo, marca e agente de IA no centro, ações na base e uma transição editorial para as soluções.
 
 ## Não versionado — 2026-11-27
