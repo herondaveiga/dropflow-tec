@@ -35,7 +35,7 @@ const featuredCards = '<div class="featured-grid">' + solutionGroups.map(([title
     const service = services.find((item) => item.slug === slug);
     return `<a href="${servicePath(service)}">${service.name}</a>`;
   });
-  return `<article class="featured-card">${photo ? `<img src="/images/${photo}" width="850" height="500" alt="" loading="lazy">` : ''}
+  return `<article class="featured-card">${photo ? `<div class="featured-media"><img src="/images/${photo}" width="850" height="500" alt="" loading="lazy"></div>` : ''}
     <div><h3>${title}</h3>${list(links)}</div>
   </article>`;
 }).join('') + '</div>';
@@ -117,7 +117,10 @@ addPage('/', 'Automação, integração de sistemas e IA para empresas',
   'A DropFlow conecta sistemas, automatiza processos e implanta agentes de IA para empresas. Conheça os serviços e solicite um diagnóstico.',
   `<script type="module" src="/motion.js"></script>
   <section class="hero" aria-labelledby="abertura">
-    <div class="hero-backdrop" aria-hidden="true"><img class="hero-photo" src="/images/operacao.webp" width="850" alt="" fetchpriority="high"></div>
+    <div class="hero-backdrop" aria-hidden="true">
+      <img class="hero-photo" src="/images/operacao.webp" width="850" alt="" fetchpriority="high">
+      <span class="hero-wordmark">DropFlow</span>
+    </div>
     <div class="hero-inner wrap">
       <div class="hero-content">
         <h1 id="abertura">Automação e integração <em>para empresas.</em></h1>

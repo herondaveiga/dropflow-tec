@@ -1,5 +1,9 @@
 # Changelog
 
+## Não versionado — 2026-11-27
+
+- Reformulada a home com fotografia em tela cheia, marca em escala editorial, vitrine assimétrica e revelação das imagens com vidro fosco. Mantido o suporte a movimento reduzido.
+
 ## Não versionado — 2026-11-24
 
 - Expandido o diretório para 1.500 municípios e 27 unidades da federação, com indicadores do IBGE, exemplos de aplicação por atividade econômica, links regionais e URLs canônicas no sitemap.
