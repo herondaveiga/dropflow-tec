@@ -2,6 +2,10 @@
 
 ## Não versionado — 2026-11-27
 
+- Ajustados os efeitos da home com o agente de IA recortado à frente da marca, entrada lateral da tipografia e revelação curvada do vidro fosco.
+
+## Não versionado — 2026-11-27
+
 - Reformulada a home com fotografia em tela cheia, marca em escala editorial, vitrine assimétrica e revelação das imagens com vidro fosco. Mantido o suporte a movimento reduzido.
 
 ## Não versionado — 2026-11-24

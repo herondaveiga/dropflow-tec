@@ -118,8 +118,8 @@ addPage('/', 'Automação, integração de sistemas e IA para empresas',
   `<script type="module" src="/motion.js"></script>
   <section class="hero" aria-labelledby="abertura">
     <div class="hero-backdrop" aria-hidden="true">
-      <img class="hero-photo" src="/images/operacao.webp" width="850" alt="" fetchpriority="high">
       <span class="hero-wordmark">DropFlow</span>
+      <img class="hero-photo" src="/images/agente-de-ia.webp" width="1600" height="900" alt="" fetchpriority="high">
     </div>
     <div class="hero-inner wrap">
       <div class="hero-content">
