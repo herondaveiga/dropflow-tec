@@ -293,11 +293,49 @@ main [id], main[id] { scroll-margin-top: 6rem; }
     radial-gradient(ellipse 96% 85% at 82% 75%, #392b1a, transparent 75%),
     linear-gradient(transparent, var(--paper) 75%);
 }
+.hero-cloud-exit::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  opacity: clamp(0, calc((var(--scene-progress) - 0.65) / 0.35), 1);
+}
 .hero-wordmark span { display: inline-block; }
 
+.home {
+  --page-progress: 0;
+  position: relative;
+  isolation: isolate;
+}
+.home::before,
+.home::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  inset: -20vh -15vw;
+  pointer-events: none;
+}
+.home::before {
+  background:
+    radial-gradient(ellipse 42% 28% at 18% 63%, #ffcb3219, transparent 72%),
+    radial-gradient(ellipse 48% 31% at 83% 38%, #a872322b, transparent 74%);
+}
+.home::after {
+  background:
+    radial-gradient(ellipse 47% 17% at 78% 68%, #ffcb321a, transparent 76%),
+    radial-gradient(ellipse 36% 16% at 19% 37%, #d59d5222, transparent 76%);
+}
+.home .home-solutions { background: linear-gradient(145deg, #ffcb3217, #191919b8 54%, transparent); color: var(--ink); }
+.home .home-solutions .section-head > a { color: var(--accent); }
+.home .story-band { background: #1c1b1799; }
+.home .story-band::before { opacity: 0.5; }
+.home .footer { background: #10101080; }
+
 @media (prefers-reduced-motion: no-preference) {
+  .home::before { transform: translate(calc(var(--page-progress) * 13vw), calc(var(--page-progress) * -23vh)); }
+  .home::after { transform: translate(calc(var(--page-progress) * -17vw), calc(var(--page-progress) * 28vh)); }
   .hero-scene.scene-motion::after { content: ""; display: block; height: 65svh; }
-  .scene-motion .hero { position: sticky; top: 0; }
+  .scene-motion .hero { position: sticky; top: var(--scene-sticky-top, 0px); }
   .scene-motion .hero-backdrop .hero-photo {
     left: calc(50% + var(--scene-x) * 0.45);
     translate: -69% calc(-43% + var(--scene-y) * 0.45 - var(--scene-progress) * 29svh);
@@ -319,9 +357,10 @@ main [id], main[id] { scroll-margin-top: 6rem; }
   .scene-motion .hero-wordmark span { animation: letra-cena 850ms cubic-bezier(.2,.75,.25,1) calc(var(--letter) * 48ms) both; }
   .scene-motion .hero-cloud-exit {
     visibility: visible;
-    opacity: var(--scene-progress);
+    opacity: clamp(0, calc((var(--scene-progress) - 0.12) / 0.88), 1);
     transform: translateY(calc((1 - var(--scene-progress)) * 90%));
   }
+  .scene-motion .hero:has(:focus-visible) .hero-cloud-exit { visibility: hidden; }
   @keyframes letra-cena {
     from { opacity: 0; transform: translateY(0.45em); }
     to { opacity: 1; transform: translateY(0); }

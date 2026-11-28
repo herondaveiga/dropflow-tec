@@ -2,6 +2,10 @@
 
 ## Não versionado — 2026-11-27
 
+- Suavizada a saída da névoa e corrigido o início da transição em telas mais baixas. Estendida a névoa em paralaxe por toda a home, com animações de entrada nas seções e no rodapé.
+
+## Não versionado — 2026-11-27
+
 - Adaptada a abertura com névoa em camadas, entrada letra a letra, paralaxe no cursor e saída controlada pela rolagem. Preservados os textos e as cores da DropFlow.
 
 ## Não versionado — 2026-11-27

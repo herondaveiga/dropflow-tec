@@ -7,9 +7,17 @@ if (scene) {
   const paint = () => {
     frame = 0;
     const { top, height } = scene.getBoundingClientRect();
-    const distance = height - scene.firstElementChild.offsetHeight;
-    const progress = distance > 0 ? Math.min(1, Math.max(0, -top / distance)) : 0;
+    const stageHeight = scene.firstElementChild.offsetHeight;
+    const stickyTop = Math.min(0, document.documentElement.clientHeight - stageHeight);
+    const distance = height - stageHeight;
+    const progress = distance > 0 ? Math.min(1, Math.max(0, (stickyTop - top) / distance)) : 0;
+    scene.style.setProperty('--scene-sticky-top', `${stickyTop}px`);
     scene.style.setProperty('--scene-progress', progress.toFixed(4));
+    if (!reducedMotion.matches) {
+      const scrollRange = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const pageProgress = scrollRange > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollRange)) : 0;
+      document.body.style.setProperty('--page-progress', pageProgress.toFixed(4));
+    }
   };
   const update = () => {
     if (!frame) frame = requestAnimationFrame(paint);
@@ -46,7 +54,7 @@ if ('IntersectionObserver' in window) {
         entry.target.classList.add('is-revealing');
       } else if (typeof entry.target.animate === 'function') {
         entry.target.animate(
-          [{ opacity: 0.25, transform: 'translateY(24px)' }, { opacity: 1, transform: 'translateY(0)' }],
+          [{ opacity: 0.55, transform: 'translateY(24px)' }, { opacity: 1, transform: 'translateY(0)' }],
           { duration: 620, easing: 'cubic-bezier(.2,.75,.3,1)' }
         );
       }
@@ -54,6 +62,6 @@ if ('IntersectionObserver' in window) {
   }, { threshold: 0.15 });
 
   document.querySelectorAll(
-    '.diagnostic-strip li, .problem-cards, .featured-media, .featured-card:last-child, .story-band .split, .method-list li, .city-cards .card, .faq, .closing'
+    '.home-statement p, .diagnostic-strip li, .section-head, .problem-cards, .featured-media, .featured-card:last-child, .story-band .split, .method-list li, [aria-labelledby="tecnologia"] > div, .city-cards .card, .faq, .closing, .footer-row'
   ).forEach((element) => reveal.observe(element));
 }
