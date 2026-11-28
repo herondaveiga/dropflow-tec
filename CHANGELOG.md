@@ -2,6 +2,10 @@
 
 ## Não versionado — 2026-11-27
 
+- Reorganizada a home com apresentação no topo, marca e agente de IA no centro, ações na base e uma transição editorial para as soluções.
+
+## Não versionado — 2026-11-27
+
 - Ajustados os efeitos da home com o agente de IA recortado à frente da marca, entrada lateral da tipografia e revelação curvada do vidro fosco.
 
 ## Não versionado — 2026-11-27

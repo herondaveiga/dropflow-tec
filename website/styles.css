@@ -177,13 +177,13 @@ main [id], main[id] { scroll-margin-top: 6rem; }
 }
 
 /* Composição editorial da página inicial */
-.hero { align-items: end; min-height: max(44rem, 100svh); }
+.hero { align-items: stretch; min-height: max(44rem, 100svh); }
 .hero-backdrop { background: radial-gradient(ellipse at 50% 62%, #39291a, var(--paper) 66%); }
 .hero-backdrop .hero-photo {
   inset: auto;
-  top: clamp(10rem, 35svh, 25rem);
+  top: 49%;
   left: 50%;
-  width: clamp(43rem, 87vw, 92rem);
+  width: clamp(51rem, 95vw, 100rem);
   height: auto;
   translate: -69% -43%;
   clip-path: polygon(60.4% 14.4%, 61% 11.6%, 65% 7.3%, 71.8% 4.1%, 75.2% 4.1%, 78.2% 6.9%, 79.8% 10.3%, 79.8% 31.5%, 83% 30%, 88% 23.6%, 88% 23%, 84.4% 20.5%, 84.2% 14.3%, 90.9% 10.5%, 97.3% 13.8%, 97.1% 19.8%, 91.4% 23.8%, 88.5% 24%, 83.9% 31%, 79.8% 33%, 79.6% 61.5%, 83% 64%, 84.9% 63.8%, 85.3% 61.8%, 92% 56.3%, 96% 60.2%, 96% 68.5%, 90.7% 72.6%, 84.7% 69%, 84.6% 65.5%, 79.5% 63%, 79.6% 84%, 76.8% 87.3%, 70% 88%, 63% 86.3%, 59.6% 83%, 59.8% 51.5%, 57% 47.5%, 53.4% 45%, 53% 47.5%, 49% 49.1%, 44.4% 48.4%, 42.4% 46%, 42.4% 40.2%, 44.6% 37.7%, 49% 36.6%, 53.3% 39%, 53.5% 43.5%, 57.6% 46.8%, 60.2% 50%);
@@ -195,7 +195,7 @@ main [id], main[id] { scroll-margin-top: 6rem; }
 }
 .hero-wordmark {
   position: absolute;
-  top: clamp(10rem, 35svh, 25rem);
+  top: 47%;
   left: 50%;
   translate: -50% -50%;
   color: var(--yellow);
@@ -205,9 +205,20 @@ main [id], main[id] { scroll-margin-top: 6rem; }
   line-height: 0.9;
   white-space: nowrap;
 }
-.hero-inner { padding-block: clamp(17rem, 43svh, 30rem) clamp(3rem, 8svh, 6rem); }
-.hero h1 { font-size: clamp(2.65rem, 5.2vw, 5.35rem); }
-.hero-flow { background: #181713af; backdrop-filter: blur(14px); }
+.hero-inner {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto minmax(14rem, 1fr) auto;
+  align-content: stretch;
+  gap: 1rem 2rem;
+  padding-block: clamp(6rem, 14svh, 9rem) clamp(2.5rem, 6svh, 5rem);
+}
+.hero h1 { grid-column: 1 / -1; align-self: start; max-width: 24ch; margin: 0; font-size: clamp(1.4rem, 2.9vw, 2.65rem); letter-spacing: -0.035em; }
+.hero-content { grid-row: 3; max-width: 26rem; }
+.hero-content .lead { font-size: clamp(0.95rem, 1.5vw, 1.15rem); }
+.hero-flow { grid-row: 3; justify-self: end; max-width: 23rem; background: #181713af; backdrop-filter: blur(14px); }
+.home-statement { display: grid; place-items: center; padding-block: clamp(4rem, 12vw, 10rem) clamp(2.5rem, 7vw, 5rem); text-align: center; }
+.home-statement p { max-width: 24ch; margin: 0; color: var(--ink); font-size: clamp(2rem, 5.5vw, 5rem); font-weight: 650; letter-spacing: -0.06em; line-height: 1.03; }
+.home-statement em { color: var(--yellow); font-style: normal; }
 .home-solutions .featured-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 2rem); align-items: start; }
 .home-solutions .featured-card { grid-column: span 7; border-radius: 1rem; }
 .home-solutions .featured-card:nth-child(2) { grid-column: span 5; margin-top: clamp(2rem, 7vw, 7rem); }
@@ -225,9 +236,11 @@ main [id], main[id] { scroll-margin-top: 6rem; }
 }
 
 @media (max-width: 760px) {
-  .hero-wordmark, .hero-backdrop .hero-photo { top: clamp(6rem, 19svh, 12rem); }
-  .hero-backdrop .hero-photo { width: clamp(33rem, 120vw, 43rem); }
-  .hero-inner { padding-block: clamp(12rem, 33svh, 18rem) 3rem; }
+  .hero { min-height: max(40rem, calc(100svh - 6rem)); }
+  .hero-wordmark, .hero-backdrop .hero-photo { top: 38%; }
+  .hero-backdrop .hero-photo { width: clamp(34rem, 115vw, 53rem); }
+  .hero-inner { grid-template-columns: 1fr; grid-template-rows: auto minmax(12rem, 1fr) auto auto; padding-block: 1rem 2rem; }
+  .hero-flow { grid-row: 4; justify-self: start; }
   .home-solutions .featured-grid { grid-template-columns: 1fr; }
   .home-solutions .featured-card, .home-solutions .featured-card:nth-child(2), .home-solutions .featured-card:last-child {
     grid-column: auto;
@@ -255,6 +268,17 @@ main [id], main[id] { scroll-margin-top: 6rem; }
   @keyframes foto-revelacao {
     from { transform: scale(1.09); }
     to { transform: scale(1); }
+  }
+  @supports (animation-timeline: view()) {
+    .hero-backdrop {
+      animation: cena-rolagem linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+    @keyframes cena-rolagem {
+      from { transform: translateY(0); }
+      to { transform: translateY(19%); }
+    }
   }
 }
 @keyframes abertura-foto {
